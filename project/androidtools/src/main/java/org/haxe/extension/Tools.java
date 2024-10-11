@@ -83,22 +83,16 @@ public class Tools extends Extension
 
 		try
 		{
-			final PackageInfo info;
-
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-				info = (PackageInfo) mainContext.getPackageManager().getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(PackageManager.GET_PERMISSIONS));
-			else
-				info = (PackageInfo) mainContext.getPackageManager().getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
-
-			for (int i = 0; i < info.requestedPermissions.length; i++)
+			PackageInfo packInfo = Extension.mainContext.getPackageManager().getPackageInfo(Extension.mainContext.getPackageName(), PackageManager.GET_PERMISSIONS);
+			for (int i = 0; i < packInfo.requestedPermissions.length; i++)
 			{
-				if ((info.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0)
-					granted.add(info.requestedPermissions[i]);
+				if ((packInfo.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0)
+					granted.add(packInfo.requestedPermissions[i]);
 			}
 		}
 		catch (Exception e)
 		{
-			Log.e(LOG_TAG, e.toString());
+			Log.e("Permissions", e.toString());
 		}
 
 		return granted.toArray(new String[granted.size()]);
@@ -245,7 +239,7 @@ public class Tools extends Extension
 	 * @param path The path to the application package (.apk file).
 	 * @return true if the installation was successful, false otherwise.
 	 */
-	public static boolean installPackage(final String path)
+	/*public static boolean installPackage(final String path)
 	{
 		try
 		{
@@ -280,7 +274,7 @@ public class Tools extends Extension
 
 			return false;
 		}
-	}
+	}*/
 
 	/**
 	 * Enables secure mode for the application window.
@@ -428,7 +422,7 @@ public class Tools extends Extension
 	 * @param channelName The name of the notification channel.
 	 * @param ID The ID of the notification.
 	 */
-	public static void showNotification(final String title, final String message, final String channelID, final String channelName, final int ID)
+	/*public static void showNotification(final String title, final String message, final String channelID, final String channelName, final int ID)
 	{
 		mainActivity.runOnUiThread(new Runnable()
 		{
@@ -462,7 +456,7 @@ public class Tools extends Extension
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Retrieves the application's private files directory.
